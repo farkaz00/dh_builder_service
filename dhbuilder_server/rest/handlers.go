@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	dhb "github.com/farkaz00/dh_builder_service/dhbuilder"
+	"github.com/farkaz00/dh_builder_service/dhbuilder/models"
 )
 
 type (
@@ -15,15 +16,6 @@ type (
 	requestEncoderFunction     func(ctx context.Context, data any, w http.ResponseWriter) (any, error)
 	errorHandlingFunction      func(ctx context.Context, err error, w http.ResponseWriter) (any, error)
 )
-
-type loginRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
-type loginResponse struct {
-	Token string `json:"token"`
-}
 
 // HandlerWrapper Streamlines the handler inner data flow.
 // Forces the use of request decoder and response encoder functions.
@@ -60,6 +52,24 @@ func HandlerWrapper(
 
 func CreateCardHandler(srv dhb.DHServicer) serviceCallerFunction {
 	return func(ctx context.Context, data any) (any, error) {
-		return srv.CreateCard(ctx, nil)
+		return srv.CreateCard(ctx, data.(*models.Card))
+	}
+}
+
+func UpdateCardHandler(srv dhb.DHServicer) serviceCallerFunction {
+	return func(ctx context.Context, data any) (any, error) {
+		return srv.UpdateCard(ctx, data.(*models.Card))
+	}
+}
+
+func GetCardHandler(srv dhb.DHServicer) serviceCallerFunction {
+	return func(ctx context.Context, data any) (any, error) {
+		return srv.GetCard(ctx, data.(IDRequest).ID)
+	}
+}
+
+func GetCardsHandler(srv dhb.DHServicer) serviceCallerFunction {
+	return func(ctx context.Context, data any) (any, error) {
+		return srv.GetCards(ctx)
 	}
 }
