@@ -2,8 +2,6 @@
 package dhbuilder
 
 import (
-	"fmt"
-
 	"go.uber.org/zap"
 )
 
@@ -24,8 +22,4 @@ func NewDHService(deps *DHServiceDeps) DHServicer {
 		logger: deps.Logger,
 		dao:    deps.DAO,
 	}
-}
-
-func (dhs *DHService) Serve() {
-	fmt.Println("Serving...")
 }
