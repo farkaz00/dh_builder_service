@@ -12,10 +12,11 @@ const (
 
 // Card defines the data used to represent DH cards
 type Card struct {
-	ID       string    `json:"id"`
-	ManaCost int       `json:"mana_cost"`
-	Name     string    `json:"name"`
-	Effect   string    `json:"description"`
-	Image    string    `json:"image"`
-	Realm    CardRealm `json:"card_realm"`
+	ID           string    `json:"id"`
+	ManaCost     int       `json:"mana_cost"`
+	Name         string    `json:"name"`
+	Effect       string    `json:"description"`
+	Image        string    `json:"image"`
+	Realm        CardRealm `json:"card_realm"`
+	LimitPerDeck int       `json:"limit_per_deck`
 }

@@ -2,7 +2,6 @@ package rest
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
 
 	dhb "github.com/farkaz00/dh_builder_service/dhbuilder"
@@ -64,19 +63,3 @@ func CreateCardHandler(srv dhb.DHServicer) serviceCallerFunction {
 		return srv.CreateCard(ctx, nil)
 	}
 }
-
-// TODO: Remove {
-func LoginHandler(w http.ResponseWriter, r *http.Request) {
-	_, err := decodeLoginRequest(r.Context(), r)
-	if err != nil {
-		http.Error(w, "invalid request body", http.StatusBadRequest)
-		return
-	}
-
-	// TODO: validate credentials and generate a real token
-	resp := loginResponse{Token: "placeholder-token"}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(resp)
-}
-
-// }

@@ -10,7 +10,7 @@ import (
 // NewRouter builds all the routes used by the rest interface
 func NewRouter(srv dhb.DHServicer) *mux.Router {
 	// Create Handler functions
-	loginHandler := HandlerWrapper(
+	cardCreateHandler := HandlerWrapper(
 		srv,
 		CreateCardHandler,
 		decodeLoginRequest,
@@ -20,6 +20,8 @@ func NewRouter(srv dhb.DHServicer) *mux.Router {
 
 	// Assign Handler functions
 	r := mux.NewRouter()
-	r.HandleFunc("/api/dhbuilder/cards", loginHandler).Methods(http.MethodPost)
+
+	// Cards
+	r.HandleFunc("/api/dhbuilder/cards", cardCreateHandler).Methods(http.MethodPost)
 	return r
 }
