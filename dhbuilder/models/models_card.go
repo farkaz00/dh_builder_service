@@ -18,5 +18,5 @@ type Card struct {
 	Effect       string    `json:"description"`
 	Image        string    `json:"image"`
 	Realm        CardRealm `json:"card_realm"`
-	LimitPerDeck int       `json:"limit_per_deck`
+	LimitPerDeck int       `json:"limit_per_deck"`
 }

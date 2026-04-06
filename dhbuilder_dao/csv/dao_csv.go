@@ -7,16 +7,16 @@ import (
 
 // DHCSVDeps bundles the dependencies to build the CSV DAO instance
 type DHCSVDeps struct {
-	FilePath string
+	CardFilePath string
 }
 
 // DHCSV stores all CSV DAO dependencies
 type DHCSV struct {
-	filePath string
+	cardFilePath string
 }
 
 func NewDHCSV(deps *DHCSVDeps) (dhb.DHDAO, error) {
 	return &DHCSV{
-		filePath: deps.FilePath,
+		cardFilePath: deps.CardFilePath,
 	}, nil
 }

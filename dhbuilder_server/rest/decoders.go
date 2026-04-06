@@ -14,14 +14,6 @@ type IDRequest struct {
 	ID string
 }
 
-func decodeLoginRequest(ctx context.Context, r *http.Request) (any, error) {
-	var req loginRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		return nil, err
-	}
-	return req, nil
-}
-
 func decodeIDRequest(ctx context.Context, r *http.Request) (any, error) {
 	return IDRequest{ID: mux.Vars(r)["id"]}, nil
 }

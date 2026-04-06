@@ -66,7 +66,7 @@ func (dao *DHCSV) GetCards(ctx context.Context) ([]*models.Card, error) {
 }
 
 func (dao *DHCSV) readAllCards() ([]*models.Card, error) {
-	f, err := os.Open(dao.filePath)
+	f, err := os.Open(dao.cardFilePath)
 	if os.IsNotExist(err) {
 		return []*models.Card{}, nil
 	}
@@ -96,7 +96,7 @@ func (dao *DHCSV) readAllCards() ([]*models.Card, error) {
 }
 
 func (dao *DHCSV) writeAllCards(cards []*models.Card) error {
-	f, err := os.Create(dao.filePath)
+	f, err := os.Create(dao.cardFilePath)
 	if err != nil {
 		return fmt.Errorf("failed to create CSV file: %w", err)
 	}

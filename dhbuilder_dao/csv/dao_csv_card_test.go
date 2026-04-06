@@ -17,7 +17,7 @@ func newTestDAO(t *testing.T) (*DHCSV, func()) {
 	path := f.Name()
 	f.Close()
 	os.Remove(path) // start with no file so DAO initialises from scratch
-	return &DHCSV{filePath: path}, func() { os.Remove(path) }
+	return &DHCSV{cardFilePath: path}, func() { os.Remove(path) }
 }
 
 var testCard = &models.Card{
@@ -38,7 +38,6 @@ func TestSaveCard_GeneratesIDWhenEmpty(t *testing.T) {
 
 	card := &models.Card{Name: "Shadow Strike", ManaCost: 3}
 	id, err := dao.SaveCard(context.Background(), card)
-
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -55,7 +54,6 @@ func TestSaveCard_PreservesProvidedID(t *testing.T) {
 	defer cleanup()
 
 	id, err := dao.SaveCard(context.Background(), testCard)
-
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -111,7 +109,6 @@ func TestGetCard_ReturnsCardByID(t *testing.T) {
 	}
 
 	card, err := dao.GetCard(context.Background(), testCard.ID)
-
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -135,7 +132,6 @@ func TestGetCard_ReturnsNilWhenNotFound(t *testing.T) {
 	}
 
 	card, err := dao.GetCard(context.Background(), "unknown-id")
-
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -149,7 +145,6 @@ func TestGetCard_ReturnsNilWhenFileNotExists(t *testing.T) {
 	defer cleanup()
 
 	card, err := dao.GetCard(context.Background(), "any-id")
-
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -172,7 +167,6 @@ func TestGetCards_ReturnsAllSavedCards(t *testing.T) {
 	}
 
 	cards, err := dao.GetCards(context.Background())
-
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -186,7 +180,6 @@ func TestGetCards_ReturnsEmptyWhenFileNotExists(t *testing.T) {
 	defer cleanup()
 
 	cards, err := dao.GetCards(context.Background())
-
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
